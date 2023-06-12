@@ -1,0 +1,60 @@
+const readlineSync = require('readline-sync');
+
+class Employee {
+  constructor(empId, name, position, salary) {
+    this.empId = empId;
+    this.name = name;
+    this.position = position;
+    this.salary = salary;
+  }
+}
+
+class EmployeeManagementSystem {
+  constructor() {
+    this.employees = [];
+  }
+
+  addEmployee() {
+    const empId = readlineSync.question('Enter employee ID: ');
+    const name = readlineSync.question('Enter employee name: ');
+    const position = readlineSync.question('Enter employee position: ');
+    const salary = readlineSync.question('Enter employee salary: ');
+    const employee = new Employee(empId, name, position, salary);
+    this.employees.push(employee);
+    console.log('Employee added successfully.');
+  }
+
+  removeEmployee() {
+    const empId = readlineSync.question('Enter employee ID to remove: ');
+    const index = this.employees.findIndex((employee) => employee.empId === empId);
+    if (index !== -1) {
+      this.employees.splice(index, 1);
+      console.log('Employee removed successfully.');
+    } else {
+      console.log('Employee not found.');
+    }
+  }
+
+  displayEmployees() {
+    if (this.employees.length === 0) {
+      console.log('No employees found.');
+    } else {
+      console.log('Employee List:');
+      this.employees.forEach((employee) => {
+        console.log(`ID: ${employee.empId}, Name: ${employee.name}, Position: ${employee.position}, Salary: ${employee.salary}`);
+      });
+    }
+  }
+}
+
+// Usage example
+const empMgmtSystem = new EmployeeManagementSystem();
+
+empMgmtSystem.addEmployee();
+empMgmtSystem.addEmployee();
+
+empMgmtSystem.displayEmployees();
+
+empMgmtSystem.removeEmployee();
+
+empMgmtSystem.displayEmployees();
